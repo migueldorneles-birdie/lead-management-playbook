@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birdie Lead Management Playbook</title>
+<style>
+  :root {
+    --green: #00b386;
+    --green-light: #e6f9f4;
+    --green-mid: #b3ede0;
+    --dark: #1a1a2e;
+    --gray-dark: #374151;
+    --gray-mid: #6b7280;
+    --gray-light: #f3f4f6;
+    --gray-border: #e5e7eb;
+    --white: #ffffff;
+    --yellow: #fbbf24;
+    --yellow-light: #fffbeb;
+    --red: #ef4444;
+    --red-light: #fef2f2;
+    --blue: #3b82f6;
+    --blue-light: #eff6ff;
+    --purple: #8b5cf6;
+    --purple-light: #f5f3ff;
+    --orange: #f97316;
+    --orange-light: #fff7ed;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--gray-dark);
+    background: var(--gray-light);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--dark);
+    overflow-y: auto;
+    padding: 0 0 32px 0;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 8px;
+  }
+
+  .nav-logo span {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+
+  .nav-logo h2 {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  nav a {
+    display: block;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 12.5px;
+    padding: 7px 20px;
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+  }
+
+  nav a:hover {
+    color: white;
+    background: rgba(255,255,255,0.05);
+    border-left-color: var(--green);
+  }
+
+  nav .nav-section {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    padding: 16px 20px 4px;
+  }
+
+  /* MAIN */
+  main {
+    margin-left: 260px;
+    padding: 40px 48px;
+    max-width: 1100px;
+  }
+
+  /* HEADER HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--dark) 0%, #0f3d30 100%);
+    border-radius: 16px;
+    padding: 40px 48px;
+    margin-bottom: 40px;
+    color: white;
+  }
+
+  .hero .badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    max-width: 640px;
+    margin-bottom: 24px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta span {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .hero-meta strong {
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* SECTIONS */
+  section {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 28px;
+    border: 1px solid var(--gray-border);
+  }
+
+  section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  section h2 .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    color: var(--gray-mid);
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--gray-border);
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 24px 0 10px;
+  }
+
+  h3:first-of-type { margin-top: 0; }
+
+  p { font-size: 14px; color: var(--gray-dark); margin-bottom: 10px; }
+
+  /* STAGE PIPELINE */
+  .pipeline {
+    display: flex;
+    gap: 0;
+    margin: 20px 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .stage-card {
+    flex: 1;
+    min-width: 150px;
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    border-right: none;
+    padding: 16px 14px;
+    position: relative;
+  }
+
+  .stage-card:first-child { border-radius: 10px 0 0 10px; }
+  .stage-card:last-child { border-right: 1px solid var(--gray-border); border-radius: 0 10px 10px 0; }
+
+  .stage-card::after {
+    content: '›';
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: var(--gray-mid);
+    z-index: 1;
+    background: white;
+    width: 22px;
+    text-align: center;
+  }
+  .stage-card:last-child::after { display: none; }
+
+  .stage-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: 4px;
+  }
+
+  .stage-name {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .stage-def {
+    font-size: 12px;
+    color: var(--gray-dark);
+    line-height: 1.5;
+  }
+
+  .stage-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 10px;
+    margin-top: 8px;
+  }
+
+  /* COLORS BY STAGE */
+  .s-lead   { border-top: 3px solid #94a3b8; }
+  .s-lead .stage-name { color: #64748b; }
+  .s-lead .stage-tag { background: #f1f5f9; color: #64748b; }
+
+  .s-mql    { border-top: 3px solid var(--blue); }
+  .s-mql .stage-name { color: var(--blue); }
+  .s-mql .stage-tag { background: var(--blue-light); color: var(--blue); }
+
+  .s-sal    { border-top: 3px solid var(--purple); }
+  .s-sal .stage-name { color: var(--purple); }
+  .s-sal .stage-tag { background: var(--purple-light); color: var(--purple); }
+
+  .s-sql    { border-top: 3px solid var(--yellow); }
+  .s-sql .stage-name { color: #b45309; }
+  .s-sql .stage-tag { background: var(--yellow-light); color: #b45309; }
+
+  .s-sqo    { border-top: 3px solid var(--green); }
+  .s-sqo .stage-name { color: var(--green); }
+  .s-sqo .stage-tag { background: var(--green-light); color: var(--green); }
+
+  /* NOTE BOX */
+  .note {
+    background: var(--yellow-light);
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #78350f;
+    margin: 16px 0;
+  }
+
+  .note strong { font-weight: 700; }
+
+  .note-green {
+    background: var(--green-light);
+    border-color: var(--green-mid);
+    color: #064e3b;
+  }
+
+  .note-blue {
+    background: var(--blue-light);
+    border-color: #bfdbfe;
+    color: #1e40af;
+  }
+
+  /* SEGMENT CARDS */
+  .segment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .segment-card {
+    border-radius: 10px;
+    padding: 18px;
+    border: 1px solid var(--gray-border);
+  }
+
+  .segment-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .segment-card ul {
+    font-size: 12.5px;
+    padding-left: 16px;
+    color: var(--gray-dark);
+    line-height: 1.8;
+  }
+
+  .seg-icp    { background: var(--blue-light);   border-color: #bfdbfe; }
+  .seg-icp h4 { color: var(--blue); }
+
+  .seg-ta     { background: var(--purple-light);  border-color: #ddd6fe; }
+  .seg-ta h4  { color: var(--purple); }
+
+  .seg-noicp  { background: var(--gray-light);    border-color: var(--gray-border); }
+  .seg-noicp h4 { color: var(--gray-mid); }
+
+  .seg-cust   { background: var(--green-light);   border-color: var(--green-mid); }
+  .seg-cust h4 { color: var(--green); }
+
+  .seg-evan   { background: var(--orange-light);  border-color: #fed7aa; }
+  .seg-evan h4 { color: var(--orange); }
+
+  /* CRITERIA GRID */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .criteria-box {
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    background: var(--gray-light);
+  }
+
+  .criteria-box h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--gray-mid);
+    margin-bottom: 8px;
+  }
+
+  .criteria-box ul {
+    font-size: 13px;
+    padding-left: 16px;
+    line-height: 1.9;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 16px 0;
+  }
+
+  th {
+    background: var(--dark);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child  { border-radius: 0 8px 0 0; }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gray-border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--gray-light); }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  .tag-cold   { background: #e0f2fe; color: #0369a1; }
+  .tag-warm   { background: var(--yellow-light); color: #92400e; }
+  .tag-hot    { background: #fee2e2; color: #991b1b; }
+  .tag-green  { background: var(--green-light); color: #065f46; }
+  .tag-purple { background: var(--purple-light); color: #5b21b6; }
+
+  /* TOOL STACK */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .tool-card {
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .tool-card .tool-heat {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .tool-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .tool-card p {
+    font-size: 12px;
+    color: var(--gray-mid);
+    margin: 0;
+  }
+
+  .tool-cold { border-top: 3px solid #0ea5e9; }
+  .tool-cold .tool-heat { color: #0369a1; }
+
+  .tool-warm { border-top: 3px solid var(--yellow); }
+  .tool-warm .tool-heat { color: #92400e; }
+
+  .tool-hot  { border-top: 3px solid var(--red); }
+  .tool-hot  .tool-heat { color: #991b1b; }
+
+  /* PHASE CARDS */
+  .phase-list { margin: 16px 0; }
+
+  .phase {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+
+  .phase-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--green);
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .phase-content h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--dark);
+  }
+
+  .phase-content p {
+    font-size: 13px;
+    margin: 0;
+    color: var(--gray-dark);
+  }
+
+  /* DOMAIN TABLE */
+  .domain-row td:first-child {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    background: var(--gray-light);
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--gray-border);
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist li::before {
+    content: '□';
+    font-size: 16px;
+    color: var(--green);
+    flex-shrink: 0;
+    margin-top: -1px;
+  }
+
+  /* KPI GRID */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .kpi-card {
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    padding: 16px;
+    background: var(--gray-light);
+  }
+
+  .kpi-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+
+  .kpi-card ul {
+    font-size: 12.5px;
+    padding-left: 16px;
+    line-height: 1.8;
+    color: var(--gray-dark);
+  }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+    padding: 16px;
+    background: var(--gray-light);
+    border-radius: 8px;
+    border: 1px solid var(--gray-border);
+  }
+
+  .flow-box {
+    background: white;
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 90px;
+  }
+
+  .flow-arrow {
+    color: var(--gray-mid);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .flow-cond {
+    font-size: 10px;
+    color: var(--gray-mid);
+    text-align: center;
+    display: block;
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  /* SPRINT TABLE */
+  .metric-signal td:nth-child(1) { font-weight: 600; }
+
+  /* ROLE CARDS */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .role-card {
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .role-card .role-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .role-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+
+  .role-card ul {
+    font-size: 13px;
+    padding-left: 16px;
+    line-height: 1.9;
+  }
+
+  /* CADENCE CARDS */
+  .cadence-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .cadence-card {
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+
+  .cadence-card .day-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-mid);
+    margin-bottom: 4px;
+  }
+
+  .cadence-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+
+  .cadence-card p {
+    font-size: 12px;
+    color: var(--gray-mid);
+    margin: 0;
+  }
+
+  /* CHANNEL TABS */
+  .channel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 16px 0;
+  }
+
+  .channel-card {
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .channel-card .ch-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    margin-bottom: 4px;
+  }
+
+  .channel-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+
+  .channel-card ul {
+    font-size: 13px;
+    padding-left: 16px;
+    line-height: 1.9;
+  }
+
+  /* COLUMN PILLS */
+  .pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .pill {
+    background: var(--dark);
+    color: rgba(255,255,255,0.85);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+
+  .pill.optional {
+    background: var(--gray-light);
+    color: var(--gray-mid);
+    border: 1px solid var(--gray-border);
+  }
+
+  /* WARMUP TIMELINE */
+  .warmup-weeks {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .week-card {
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+
+  .week-card .wk-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+
+  .week-card .wk-vol {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .week-card p {
+    font-size: 11.5px;
+    color: var(--gray-mid);
+    margin: 0;
+  }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    text-align: right;
+    font-size: 12px;
+    margin-top: 12px;
+  }
+
+  .back-to-top a {
+    color: var(--green);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  code {
+    background: var(--gray-light);
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--dark);
+  }
+
+  @media (max-width: 900px) {
+    nav { display: none; }
+    main { margin-left: 0; padding: 24px; }
+    .segment-grid, .tool-grid, .warmup-weeks, .cadence-cards { grid-template-columns: 1fr; }
+    .criteria-grid, .kpi-grid, .role-grid, .channel-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">
+    <span>Birdie</span>
+    <h2>Lead Management<br>Playbook</h2>
+  </div>
+
+  <div class="nav-section">Overview</div>
+  <a href="#purpose">Purpose & Scope</a>
+  <a href="#stages">Lead Stage Definitions</a>
+
+  <div class="nav-section">Segmentation</div>
+  <a href="#icp">ICP Criteria</a>
+  <a href="#groups">Lead Groups</a>
+  <a href="#flagging">Competitors & Partners</a>
+  <a href="#customers">Customers & Evangelists</a>
+
+  <div class="nav-section">Data & SSOT</div>
+  <a href="#ssot">SSOT Structure (Airtable)</a>
+  <a href="#filters">Segmentation Filters</a>
+
+  <div class="nav-section">Activation</div>
+  <a href="#campaigns">Campaign Strategy by Group</a>
+  <a href="#channels">Channel Activation</a>
+  <a href="#tools">Tool Stack by Heat</a>
+
+  <div class="nav-section">CRM Health</div>
+  <a href="#domains">Domain Mapping</a>
+  <a href="#warmup">Warm-up Timeline</a>
+  <a href="#hygiene">Ongoing Hygiene Rules</a>
+  <a href="#handoff">Cold → Warm Handoff</a>
+
+  <div class="nav-section">Measurement</div>
+  <a href="#kpis">Strategic KPIs</a>
+  <a href="#sprint">Sprint Meeting Metrics</a>
+
+  <div class="nav-section">Team</div>
+  <a href="#roles">Roles & Responsibilities</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+  <div id="top"></div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">🐦 Marketing · GTM</div>
+    <h1>Lead Management Playbook</h1>
+    <p>The single source of truth for how Birdie captures, stages, segments, nurtures, and converts leads — from first touch to closed deal.</p>
+    <div class="hero-meta">
+      <span><strong>Owner:</strong> Marketing</span>
+      <span><strong>Status:</strong> Active v1.2</span>
+      <span><strong>Last updated:</strong> May 2026</span>
+      <span><strong>SSOT:</strong> Airtable</span>
+    </div>
+  </div>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 1: PURPOSE -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="purpose">
+    <h2><span class="icon" style="background:#f0fdf4">🎯</span> Purpose & Scope</h2>
+    <p class="section-desc">Why this document exists and what problems it solves.</p>
+
+    <p>For too long, contacts, leads, and sales motions were managed in silos with no consistent workflow, no single source of truth, and no shared language between Marketing and Sales. This playbook fixes that.</p>
+
+    <p>It defines the full lifecycle from anonymous contact to closed customer, establishes the rules of engagement at every stage, and gives Marketing and Sales a shared operating model. It should be used as the reference document for all lead-related decisions, campaign targeting, and pipeline conversations.</p>
+
+    <h3>What this playbook enables</h3>
+    <div class="criteria-grid">
+      <div class="criteria-box">
+        <h4>✅ Clarity</h4>
+        <ul>
+          <li>Exact definitions for Lead, MQL, SAL, SQL, SQO</li>
+          <li>ICP criteria locked in writing</li>
+          <li>Shared language between Mkt &amp; Sales</li>
+        </ul>
+      </div>
+      <div class="criteria-box">
+        <h4>📊 Measurement</h4>
+        <ul>
+          <li>Pipeline quality &amp; ICP fit by source</li>
+          <li>Channel ROI and velocity tracking</li>
+          <li>Coverage gaps (leads with no follow-up)</li>
+        </ul>
+      </div>
+      <div class="criteria-box">
+        <h4>🎯 Segmentation</h4>
+        <ul>
+          <li>By region, stage, source, segment</li>
+          <li>Three core lead groups with different workflows</li>
+          <li>Target Account separation for ABM</li>
+        </ul>
+      </div>
+      <div class="criteria-box">
+        <h4>⚡ Activation</h4>
+        <ul>
+          <li>Campaign strategy per group, per month</li>
+          <li>Right tool for cold, warm, hot outreach</li>
+          <li>Domain health &amp; deliverability protected</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 2: LEAD STAGES -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="stages">
+    <h2><span class="icon" style="background:#eff6ff">📈</span> Lead Stage Definitions</h2>
+    <p class="section-desc">The five stages every lead passes through from capture to opportunity.</p>
+
+    <div class="pipeline">
+      <div class="stage-card s-lead">
+        <div class="stage-label">Stage 1</div>
+        <div class="stage-name">Lead</div>
+        <div class="stage-def">Any captured contact — event attendee lists, booth scans, form submissions. No qualification required.</div>
+        <span class="stage-tag">All contacts</span>
+      </div>
+      <div class="stage-card s-mql">
+        <div class="stage-label">Stage 2</div>
+        <div class="stage-name">MQL</div>
+        <div class="stage-def">ICP fit <em>AND</em> at least one relevant/active engagement (form sub, booth scan, etc.) in the past <strong>45 days</strong>.</div>
+        <span class="stage-tag">Marketing-qualified</span>
+      </div>
+      <div class="stage-card s-sal">
+        <div class="stage-label">Stage 3</div>
+        <div class="stage-name">SAL</div>
+        <div class="stage-def">ICP fit <em>AND</em> shows intent (pricing page visit, two-pager download, etc.) — needs sales work to schedule; not yet a hand raise.</div>
+        <span class="stage-tag">Sales-accepted</span>
+      </div>
+      <div class="stage-card s-sql">
+        <div class="stage-label">Stage 4</div>
+        <div class="stage-name">SQL</div>
+        <div class="stage-def">ICP fit <em>AND</em> hand raise (demo request) <em>OR</em> strong intent signal. Ready for immediate sales engagement.</div>
+        <span class="stage-tag">Sales-qualified</span>
+      </div>
+      <div class="stage-card s-sqo">
+        <div class="stage-label">Stage 5</div>
+        <div class="stage-name">SQO</div>
+        <div class="stage-def">Any SQL that becomes a formal opportunity because there is some element of <strong>BANT</strong> (Budget, Authority, Need, Timeline) validated.</div>
+        <span class="stage-tag">Opportunity</span>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>⚠️ Edge case — non-ICP hand raises:</strong> Leads that are not ICP fit but have raised their hand (demo request) will, for now, be taken by Sales for a conversation. If a validated opportunity is confirmed by the Sales Director, it counts towards the goal.
+    </div>
+
+    <h3>Key Definitions</h3>
+    <table>
+      <tr>
+        <th>Term</th>
+        <th>Definition</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td><strong>Hand Raise</strong></td>
+        <td>A demo request — the lead has explicitly asked to speak with Sales</td>
+        <td>Required for SQL (along with ICP fit)</td>
+      </tr>
+      <tr>
+        <td><strong>Engaged</strong></td>
+        <td>At least 4 active interactions (post likes, email opens, etc. — no form submissions) in the past 45 days</td>
+        <td>Used to determine when ICP fit leads warrant Sales coordination</td>
+      </tr>
+      <tr>
+        <td><strong>Intent Signal</strong></td>
+        <td>Pricing page visit, two-pager download, high-value content download</td>
+        <td>Triggers SAL status when combined with ICP fit</td>
+      </tr>
+      <tr>
+        <td><strong>BANT</strong></td>
+        <td>Budget · Authority · Need · Timeline — at least partial validation required for SQO</td>
+        <td>Sales responsibility to confirm</td>
+      </tr>
+    </table>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 3: ICP CRITERIA -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="icp">
+    <h2><span class="icon" style="background:#f5f3ff">🎯</span> ICP Criteria</h2>
+    <p class="section-desc">A lead is ICP fit when it meets <em>all</em> of the following criteria. These gates determine MQL eligibility and campaign priority.</p>
+
+    <div class="criteria-grid">
+      <div class="criteria-box">
+        <h4>🏢 Company Size</h4>
+        <ul>
+          <li>Typically 200–5,000 employees</li>
+          <li>Large enough to have structured CX/QA teams</li>
+          <li>Small enough to move fast on a decision</li>
+        </ul>
+      </div>
+      <div class="criteria-box">
+        <h4>🏭 Industry</h4>
+        <ul>
+          <li>FinTech / FinServ <span style="background:#e0f2fe;color:#0369a1;font-size:10px;font-weight:700;padding:1px 6px;border-radius:8px;margin-left:4px;">primary</span></li>
+          <li>Services Marketplaces <span style="background:#e0f2fe;color:#0369a1;font-size:10px;font-weight:700;padding:1px 6px;border-radius:8px;margin-left:4px;">primary</span></li>
+          <li>InsurTech · SaaS / Tech · Retail / E-commerce</li>
+          <li>Other verticals with active CX/QA needs</li>
+          <li style="color:#6b7280;font-size:11.5px;font-style:italic;">All verticals are MQL-eligible — primary verticals get priority campaign investment</li>
+        </ul>
+      </div>
+      <div class="criteria-box">
+        <h4>🌍 Geography</h4>
+        <ul>
+          <li>US / Canada <span style="background:#e0f2fe;color:#0369a1;font-size:10px;font-weight:700;padding:1px 6px;border-radius:8px;margin-left:4px;">primary</span></li>
+          <li>Brazil / LATAM <span style="background:#e0f2fe;color:#0369a1;font-size:10px;font-weight:700;padding:1px 6px;border-radius:8px;margin-left:4px;">primary</span></li>
+          <li>Europe · UK · Other regions</li>
+          <li style="color:#6b7280;font-size:11.5px;font-style:italic;">Secondary regions still qualify as MQLs if all other criteria are met</li>
+        </ul>
+      </div>
+      <div class="criteria-box">
+        <h4>👤 Persona / Job Title</h4>
+        <ul>
+          <li>CX · Customer Experience</li>
+          <li>Product · Insights · Intelligence</li>
+          <li>Operations · Quality · Support</li>
+          <li>Minimum level: Coordinator, Head, Manager</li>
+          <li>Also: VP, Director, C-suite in smaller orgs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note note-green">
+      <strong>📋 Reference:</strong> For the full Target Account list with specific companies and personas, refer to the Target Accounts documentation. The list is the ultimate arbiter of TA status — company size/industry are proxies for unverified leads.
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 4: LEAD GROUPS -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="groups">
+    <h2><span class="icon" style="background:#fef9c3">👥</span> Lead Groups</h2>
+    <p class="section-desc">Every lead falls into one of three core groups. Groups determine campaign type, communication cadence, and Sales coordination rules.</p>
+
+    <div class="segment-grid">
+      <div class="segment-card seg-icp">
+        <h4>💙 ICP Fit</h4>
+        <ul>
+          <li>Regular mkt emails / campaigns</li>
+          <li>If <strong>engaged*</strong>: coordinate strategy with Sales for warm handoff</li>
+          <li>Goal: move to MQL → SAL → SQL</li>
+        </ul>
+      </div>
+      <div class="segment-card seg-ta">
+        <h4>💜 Target Accounts</h4>
+        <ul>
+          <li>Regular mkt emails + <strong>premium campaigns</strong></li>
+          <li>Premium: dinners, giveaways, free conference tickets</li>
+          <li>If <strong>engaged*</strong>: coordinate strategy with Sales</li>
+          <li>ABM-style treatment — highest priority</li>
+        </ul>
+      </div>
+      <div class="segment-card seg-noicp">
+        <h4>⬜ No ICP Fit</h4>
+        <ul>
+          <li>Regular mkt emails / campaigns only</li>
+          <li>No Sales coordination (unless validated by Sales Director)</li>
+          <li>Monitor for ICP re-qualification over time</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>*Engaged =</strong> at least 4 active interactions (post likes, email opens, etc. — form submissions excluded) in the past 45 days.
+    </div>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 4B: COMPETITORS & PARTNERS -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="flagging">
+    <h2><span class="icon" style="background:#fef2f2">🚩</span> Competitor & Partner Flagging</h2>
+    <p class="section-desc">Not every contact in our database is a prospective customer. Competitors and partners need to be identified, tagged, and routed through a different (or no) campaign track — to protect conversion metrics and avoid awkward outreach.</p>
+
+    <h3>Contact Type Definitions</h3>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Who They Are</th>
+        <th>Examples</th>
+      </tr>
+      <tr>
+        <td><span class="tag tag-hot">Competitor</span></td>
+        <td>Companies building a similar or adjacent product that competes directly or indirectly with Birdie in the CX intelligence / QA space</td>
+        <td>Other conversation analytics platforms, QA tools, VoC software vendors</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-warm">Partner</span></td>
+        <td>Companies that integrate with Birdie, resell it, refer clients, or operate in a complementary space — they are not a buying prospect but can generate pipeline indirectly</td>
+        <td>CX consulting firms, BPO/outsourcing providers, CRM or helpdesk integration partners, tech ecosystem partners</td>
+      </tr>
+    </table>
+
+    <h3>Flagging Workflow</h3>
+    <div class="phase-list">
+      <div class="phase">
+        <div class="phase-num">1</div>
+        <div class="phase-content">
+          <h4>Identify at Capture</h4>
+          <p>When importing or capturing a new contact, check the company domain and LinkedIn profile. If the company is a known competitor or partner, set the <code>Contact Type Flag</code> field immediately. Don't wait for a campaign to send to them first.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">2</div>
+        <div class="phase-content">
+          <h4>Monthly Database Audit</h4>
+          <p>During the monthly list hygiene pass, review contacts from verticals adjacent to ours (analytics, QA tools, CX consulting) and cross-check against a maintained Competitor & Partner reference list. Flag any new entries. This list lives in Airtable alongside the lead base.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-num">3</div>
+        <div class="phase-content">
+          <h4>Suppress from Active Scoring</h4>
+          <p>Tagged contacts must be excluded from ICP scoring, MQL counting, and pipeline reporting. A competitor or partner booking a demo does not count as an MQL — it distorts quality metrics. Update the <code>ICP Fit</code> field to <code>N</code> and <code>Lead Stage</code> to <code>Flagged</code>.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Campaign Permissions by Flag</h3>
+    <table>
+      <tr>
+        <th>Campaign Type</th>
+        <th><span class="tag tag-warm">Partner</span></th>
+        <th><span class="tag tag-hot">Competitor</span></th>
+        <th>Rationale</th>
+      </tr>
+      <tr>
+        <td>Monthly newsletter</td>
+        <td>✅ Yes</td>
+        <td>⛔ No</td>
+        <td>Partners can stay informed of Birdie's work; competitors should not get product/market intelligence for free</td>
+      </tr>
+      <tr>
+        <td>Regular nurture emails</td>
+        <td>✅ Yes</td>
+        <td>⛔ No</td>
+        <td>Partners are valid relationship targets; competitor nurturing wastes list health and signals</td>
+      </tr>
+      <tr>
+        <td>Premium campaigns (dinners, events, giveaways)</td>
+        <td>⛔ No</td>
+        <td>⛔ No</td>
+        <td>Premium budget is reserved for ICP conversion — neither partners nor competitors should receive it</td>
+      </tr>
+      <tr>
+        <td>LinkedIn Ads retargeting</td>
+        <td>⚠️ OK if not excluded from audience</td>
+        <td>⛔ Exclude</td>
+        <td>Add competitor domains to LinkedIn Ads exclusion lists to avoid wasted spend</td>
+      </tr>
+      <tr>
+        <td>Warm HubSpot sequences</td>
+        <td>⚠️ Only for partnership conversations</td>
+        <td>⛔ No</td>
+        <td>Partners may receive a specific "partnership track" sequence if there's an active relationship motion</td>
+      </tr>
+      <tr>
+        <td>MQL / pipeline counting</td>
+        <td>⛔ Never</td>
+        <td>⛔ Never</td>
+        <td>Flagged contacts must never inflate MQL or SQO numbers regardless of their actions</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      <strong>⚠️ Edge case — competitor employee who genuinely wants to buy:</strong> If someone at a competitor company reaches out personally (e.g. they're evaluating Birdie for a side project or a new role), this should be flagged for Sales Director review before proceeding. Don't auto-suppress individuals just because of employer domain.
+    </div>
+
+    <div class="note note-blue">
+      <strong>📌 Airtable setup:</strong> Create a dedicated <code>Competitors & Partners</code> reference table with company domains. Run a lookup/formula against the main leads base to auto-suggest flags on import. Manual confirmation is still required before the flag is set as final.
+    </div>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 5: CUSTOMERS -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="customers">
+    <h2><span class="icon" style="background:#f0fdf4">💚</span> Customers & Evangelists</h2>
+    <p class="section-desc">Active users are managed separately — they are not in the lead CRM but need their own campaign strategy.</p>
+
+    <div class="segment-grid" style="grid-template-columns: repeat(2, 1fr);">
+      <div class="segment-card seg-cust">
+        <h4>🟢 Customer</h4>
+        <ul>
+          <li>Definition: active Birdie user</li>
+          <li>Products used: VoC, QA</li>
+          <li>Database: lives in the app (not HubSpot — scale is too large, e.g. 6k+ at Nubank alone)</li>
+          <li>Campaigns: delivered via the tool Product already uses for feature announcements, events, etc.</li>
+        </ul>
+      </div>
+      <div class="segment-card seg-evan">
+        <h4>🟠 Evangelist</h4>
+        <ul>
+          <li>Definition: active Birdie user <em>AND</em> promoter</li>
+          <li>Flagged in app database</li>
+          <li>Activate for case studies, referrals, G2 reviews, speaking slots</li>
+          <li>High-value for ABM social proof</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note note-blue">
+      <strong>📌 Architecture note:</strong> The customer base in the app is separate from the lead CRM. Only flag customers as leads if there is an expansion/upsell motion — coordinate with Product on email tooling to avoid double-sending.
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 6: SSOT STRUCTURE -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="ssot">
+    <h2><span class="icon" style="background:#fffbeb">🗄️</span> SSOT Structure (Airtable)</h2>
+    <p class="section-desc">Airtable is the single source of truth for lead data — activation, scoring, and segmentation all flow from here.</p>
+
+    <h3>Required Fields (locked, no exceptions)</h3>
+    <div class="pill-list">
+      <span class="pill">Lead Source</span>
+      <span class="pill">Lead Date</span>
+      <span class="pill">Company</span>
+      <span class="pill">Industry</span>
+      <span class="pill">Company Size</span>
+      <span class="pill">Persona / Title</span>
+      <span class="pill">Region</span>
+      <span class="pill">ICP Fit (Y/N)</span>
+      <span class="pill">TA Flag (Y/N)</span>
+      <span class="pill">Lead Stage</span>
+      <span class="pill">MQL Status</span>
+      <span class="pill">MQL Date</span>
+      <span class="pill">SAL Date</span>
+      <span class="pill">SQL Date</span>
+      <span class="pill">Contact Type Flag</span>
+    </div>
+
+    <h3>Recommended Additional Fields</h3>
+    <div class="pill-list">
+      <span class="pill optional">Last Engagement</span>
+      <span class="pill optional">Engagement Count (45d)</span>
+      <span class="pill optional">Intent Signal</span>
+      <span class="pill optional">Hand Raise Date</span>
+      <span class="pill optional">Owner (Sales/Marketing)</span>
+      <span class="pill optional">Domain</span>
+      <span class="pill optional">Country</span>
+      <span class="pill optional">Notes</span>
+      <span class="pill optional">Product Used</span>
+    </div>
+
+    <div class="note note-green">
+      <strong>💡 Why Airtable:</strong> It acts as the flexible SSOT for marketing activation and scoring without the cost burden of HubSpot at scale. HubSpot / RD Station remains the CRM of record for warm and hot leads — feed enriched data from Airtable into HubSpot when a contact reaches MQL+.
+    </div>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 7: SEGMENTATION FILTERS -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="filters">
+    <h2><span class="icon" style="background:#f5f3ff">🔍</span> Segmentation Filters</h2>
+    <p class="section-desc">How to slice the database for campaign targeting. Use these filters in Airtable views and HubSpot lists.</p>
+
+    <table>
+      <tr>
+        <th>Dimension</th>
+        <th>Values / Segments</th>
+        <th>Use Case</th>
+      </tr>
+      <tr>
+        <td><strong>Lead Stage</strong></td>
+        <td>Lead · MQL · SAL · SQL · SQO</td>
+        <td>Stage-appropriate messaging; Sales handoff triggers</td>
+      </tr>
+      <tr>
+        <td><strong>Group</strong></td>
+        <td>ICP Fit · Target Account · No ICP</td>
+        <td>Campaign tier (standard vs premium vs nurture-only)</td>
+      </tr>
+      <tr>
+        <td><strong>Region</strong></td>
+        <td>US/Canada <span class="tag tag-cold">primary</span> · Brazil/LATAM <span class="tag tag-cold">primary</span> · Europe · UK · Other</td>
+        <td>Language, event relevance, rep assignment; primary regions get dedicated campaign investment</td>
+      </tr>
+      <tr>
+        <td><strong>Vertical</strong></td>
+        <td>FinTech/FinServ <span class="tag tag-cold">primary</span> · Services Marketplaces <span class="tag tag-cold">primary</span> · InsurTech · SaaS · Retail · Other</td>
+        <td>Primary verticals get priority content and spend; secondary still eligible for MQL</td>
+      </tr>
+      <tr>
+        <td><strong>Lead Source</strong></td>
+        <td>Event · Booth scan · Form · Cold outreach · Inbound / organic · Referral · LinkedIn · Webinar</td>
+        <td>Channel ROI analysis; source quality rates</td>
+      </tr>
+      <tr>
+        <td><strong>Engagement Status</strong></td>
+        <td>Engaged (4+ interactions / 45d) · Not engaged · Hand raise</td>
+        <td>Triggers Sales coordination for ICP/TA; warm sequence enrollment</td>
+      </tr>
+      <tr>
+        <td><strong>Domain</strong></td>
+        <td>birdie.ai · usebirdie.com · fly-birdie.com · inbound</td>
+        <td>Outreach tool routing (transactional vs warm vs cold)</td>
+      </tr>
+      <tr>
+        <td><strong>Company Size</strong></td>
+        <td>&lt;200 · 200–500 · 500–2000 · 2000–5000 · 5000+</td>
+        <td>ICP validation; deal size estimation</td>
+      </tr>
+      <tr>
+        <td><strong>Contact Type Flag</strong></td>
+        <td>Lead · Partner · Competitor · Customer · Evangelist</td>
+        <td>Campaign exclusion rules — see <a href="#flagging" style="color:var(--green);">Competitors &amp; Partners</a> section for full workflow</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 8: CAMPAIGN STRATEGY -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="campaigns">
+    <h2><span class="icon" style="background:#fff7ed">📣</span> Campaign Strategy by Group</h2>
+    <p class="section-desc">Every month, each lead group gets at least one campaign. Strategy and investment level differs by group.</p>
+
+    <h3>ICP Fit Leads</h3>
+    <table>
+      <tr><th>Type</th><th>Channel</th><th>Cadence</th><th>Goal</th></tr>
+      <tr>
+        <td>Regular nurture emails</td>
+        <td>Email (usebirdie.com or fly-birdie.com)</td>
+        <td>2–3×/month</td>
+        <td>Engagement → MQL</td>
+      </tr>
+      <tr>
+        <td>LinkedIn content</td>
+        <td>Birdie page + stakeholder profiles</td>
+        <td>3–5×/week</td>
+        <td>Awareness, engagement signals</td>
+      </tr>
+      <tr>
+        <td>Newsletter</td>
+        <td>Email</td>
+        <td>Monthly</td>
+        <td>Consistent engagement; asset distribution</td>
+      </tr>
+      <tr>
+        <td>Sales coordinate</td>
+        <td>HubSpot sequence (usebirdie.com)</td>
+        <td>When engaged*</td>
+        <td>SAL / SQL conversion</td>
+      </tr>
+    </table>
+
+    <h3>Target Accounts</h3>
+    <table>
+      <tr><th>Type</th><th>Channel</th><th>Cadence</th><th>Goal</th></tr>
+      <tr>
+        <td>Regular nurture emails</td>
+        <td>Email (usebirdie.com)</td>
+        <td>2–3×/month</td>
+        <td>Sustained awareness</td>
+      </tr>
+      <tr>
+        <td><strong>Premium campaigns</strong></td>
+        <td>Events (Luma), dinners, giveaways, conference tickets</td>
+        <td>Monthly</td>
+        <td>Relationship-building; pipeline acceleration</td>
+      </tr>
+      <tr>
+        <td>LinkedIn DMs</td>
+        <td>Stakeholder profiles → direct message</td>
+        <td>When engaged*</td>
+        <td>1-on-1 relationship</td>
+      </tr>
+      <tr>
+        <td>LinkedIn ads</td>
+        <td>LinkedIn Ads (TA company targeting)</td>
+        <td>Always-on</td>
+        <td>Multi-touch awareness</td>
+      </tr>
+      <tr>
+        <td>Sales coordinate</td>
+        <td>HubSpot sequence (usebirdie.com)</td>
+        <td>When engaged*</td>
+        <td>SQL / SQO conversion</td>
+      </tr>
+    </table>
+
+    <h3>No ICP Fit Leads</h3>
+    <table>
+      <tr><th>Type</th><th>Channel</th><th>Cadence</th><th>Goal</th></tr>
+      <tr>
+        <td>Regular campaigns</td>
+        <td>Email (fly-birdie.com for cold)</td>
+        <td>1–2×/month</td>
+        <td>Brand awareness; re-qualification over time</td>
+      </tr>
+      <tr>
+        <td>Newsletter</td>
+        <td>Email</td>
+        <td>Monthly</td>
+        <td>Passive nurture</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      <strong>Newsletter strategy:</strong> The newsletter is the backbone of consistent engagement across all groups. It should distribute existing blog posts, YouTube content, case studies, and event recaps. Use it to generate the 4+ engagement interactions that push ICP contacts to "engaged" status.
+    </div>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 9: CHANNEL ACTIVATION -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="channels">
+    <h2><span class="icon" style="background:#eff6ff">📡</span> Channel Activation</h2>
+    <p class="section-desc">What we run on each channel, who it's for, and what action we want.</p>
+
+    <div class="channel-grid">
+      <div class="channel-card">
+        <div class="ch-label">🔗 LinkedIn</div>
+        <h4>LinkedIn (Organic + Paid)</h4>
+        <ul>
+          <li><strong>Birdie page:</strong> Brand content, product updates, case studies, event posts. 3–5×/week.</li>
+          <li><strong>Stakeholder profiles (Pat, others):</strong> Thought leadership, POVs, reposts. 3×/week.</li>
+          <li><strong>LinkedIn DMs:</strong> Hot tool for engaged ICP/TA leads. 1-on-1, reference-based message.</li>
+          <li><strong>LinkedIn Ads:</strong> TA company targeting. Always-on for awareness; retargeting for intent.</li>
+        </ul>
+      </div>
+      <div class="channel-card">
+        <div class="ch-label">📧 Email</div>
+        <h4>Email (Nurturing + Newsletter)</h4>
+        <ul>
+          <li><strong>Newsletter:</strong> Monthly. All leads. Asset distribution + engagement driver.</li>
+          <li><strong>Cold campaigns (fly-birdie.com / Mailchimp):</strong> No ICP + unengaged ICP. Max 3-email cadence.</li>
+          <li><strong>Warm sequences (usebirdie.com / HubSpot):</strong> Engaged ICP/TA contacts. Signal-based enrollment.</li>
+          <li><strong>Transactional (birdie.ai / HubSpot):</strong> Confirmations, deal comms. Not for marketing.</li>
+        </ul>
+      </div>
+      <div class="channel-card">
+        <div class="ch-label">✍️ Blog</div>
+        <h4>Blog (SEO + Nurture)</h4>
+        <ul>
+          <li>Long-form articles targeting CX/QA search terms</li>
+          <li>Content pillars: FinTech CX, QA best practices, AI in support</li>
+          <li>Gate high-value pieces (two-pagers, guides) to capture leads and trigger SAL intent signals</li>
+          <li>Distribute via newsletter and LinkedIn</li>
+        </ul>
+      </div>
+      <div class="channel-card">
+        <div class="ch-label">🎥 YouTube</div>
+        <h4>YouTube (Education + Proof)</h4>
+        <ul>
+          <li>Product demos, use-case walkthroughs, customer stories</li>
+          <li>Webinar recordings (Bill Staikos, KOHO, etc.)</li>
+          <li>Repurpose into LinkedIn clips and newsletter embeds</li>
+          <li>CTA: book a demo / download resource (intent signal)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 10: TOOL STACK -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="tools">
+    <h2><span class="icon" style="background:#f0fdf4">🛠️</span> Tool Stack by Outreach Heat</h2>
+    <p class="section-desc">Match the right tool to the right lead temperature. Mixing these breaks deliverability.</p>
+
+    <div class="tool-grid">
+      <div class="tool-card tool-cold">
+        <div class="tool-heat">❄️ Cold</div>
+        <h4>Mailchimp</h4>
+        <p>Domain: <code>fly-birdie.com</code> · Sender: pat@<br>Use for: bulk cold campaigns, unengaged No ICP leads. Max 3 emails per sequence. Suppress after 3×no-open.</p>
+      </div>
+      <div class="tool-card tool-cold">
+        <div class="tool-heat">❄️ Cold</div>
+        <h4>LinkedIn Ads</h4>
+        <p>Always-on TA targeting. Retargeting for website visitors and content engagers. Supports ABM at scale without domain risk.</p>
+      </div>
+      <div class="tool-card tool-warm">
+        <div class="tool-heat">🌡️ Warm</div>
+        <h4>HubSpot Sequences</h4>
+        <p>Domain: <code>usebirdie.com</code> · Senders: pat@, saiago@<br>Use for: contacts with a signal — opened email, attended webinar, form fill, LinkedIn engagement.</p>
+      </div>
+      <div class="tool-card tool-warm">
+        <div class="tool-heat">🌡️ Warm</div>
+        <h4>LinkedIn DMs</h4>
+        <p>Use for: engaged ICP/TA contacts where a personal connection makes sense. Reference the signal. Keep it short — no decks, no walls of text.</p>
+      </div>
+      <div class="tool-card tool-hot">
+        <div class="tool-heat">🔥 Hot</div>
+        <h4>HubSpot CRM Deal</h4>
+        <p>Domain: <code>birdie.ai</code> or personal<br>Use for: SQL+ contacts. Active deal in HubSpot. Sales owns. Marketing supports with targeted content and case studies.</p>
+      </div>
+      <div class="tool-card tool-warm">
+        <div class="tool-heat">🌡️ Events</div>
+        <h4>Luma (Premium)</h4>
+        <p>Use for: premium TA campaigns — dinners, roundtables, exclusive events. Luma Premium if scale requires. Registrants auto-enroll in warm HubSpot sequence.</p>
+      </div>
+    </div>
+
+    <div class="note note-blue">
+      <strong>📌 Important:</strong> Never use <code>birdie.ai</code> for marketing campaigns — it's transactional only. Mixing marketing volume into the main domain will damage deliverability for product and deal emails.
+    </div>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 11: DOMAIN MAPPING -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="domains">
+    <h2><span class="icon" style="background:#f0fdf4">🌐</span> Domain Mapping</h2>
+    <p class="section-desc">Three domains, three purposes. Never cross-pollinate.</p>
+
+    <table class="domain-row">
+      <tr>
+        <th>Domain</th>
+        <th>Purpose</th>
+        <th>Tool</th>
+        <th>Senders</th>
+        <th>Volume Limit</th>
+      </tr>
+      <tr>
+        <td>birdie.ai</td>
+        <td>Transactional only (deals, product, confirmations)</td>
+        <td>HubSpot (default)</td>
+        <td>—</td>
+        <td>Unlimited (low volume)</td>
+      </tr>
+      <tr>
+        <td>usebirdie.com</td>
+        <td>Warm outreach sequences</td>
+        <td>HubSpot Sequences</td>
+        <td>pat@ · saiago@</td>
+        <td>~50–100/day per sender</td>
+      </tr>
+      <tr>
+        <td>fly-birdie.com</td>
+        <td>Cold bulk campaigns</td>
+        <td>Mailchimp + Warmup Inbox</td>
+        <td>pat@</td>
+        <td>Max 200/day until rep. established</td>
+      </tr>
+    </table>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 12: WARM-UP TIMELINE -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="warmup">
+    <h2><span class="icon" style="background:#fff7ed">🔥</span> fly-birdie.com Warm-up Timeline</h2>
+    <p class="section-desc">Complete this 4-week warm-up before sending any real cold campaign from fly-birdie.com. Skipping this step risks the entire domain being blacklisted.</p>
+
+    <div class="warmup-weeks">
+      <div class="week-card">
+        <div class="wk-label">Week 1</div>
+        <div class="wk-vol">10–20<span style="font-size:12px;font-weight:400"> /day</span></div>
+        <p>100% automated Warmup Inbox traffic. No real sends. Let reputation build from zero.</p>
+      </div>
+      <div class="week-card">
+        <div class="wk-label">Week 2</div>
+        <div class="wk-vol">30–50<span style="font-size:12px;font-weight:400"> /day</span></div>
+        <p>Introduce a small batch of your most-engaged contacts — past event registrants, known email openers.</p>
+      </div>
+      <div class="week-card">
+        <div class="wk-label">Week 3</div>
+        <div class="wk-vol">70–100<span style="font-size:12px;font-weight:400"> /day</span></div>
+        <p>Begin soft campaigns — newsletter-style content, no hard CTA. Measure open rate &amp; spam rate.</p>
+      </div>
+      <div class="week-card">
+        <div class="wk-label">Week 4</div>
+        <div class="wk-vol">150+<span style="font-size:12px;font-weight:400"> /day</span></div>
+        <p>Domain is ready for real cold volume. Start 3-email cold cadence. Monitor Google Postmaster daily.</p>
+      </div>
+    </div>
+
+    <h3>Pre-send Config Checklist</h3>
+    <ul class="checklist">
+      <li>SPF, DKIM, DMARC configured for fly-birdie.com</li>
+      <li>Warmup Inbox pool active and running 24/7 in background</li>
+      <li>Unsubscribe link present in every Mailchimp template</li>
+      <li>Suppression list synced between Mailchimp ↔ HubSpot</li>
+      <li>Google Postmaster set up and monitoring spam rate (target &lt;0.1%)</li>
+      <li>Hard bounce suppression enabled in Mailchimp</li>
+    </ul>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 13: HYGIENE RULES -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="hygiene">
+    <h2><span class="icon" style="background:#fef2f2">🧹</span> Ongoing CRM Hygiene Rules</h2>
+    <p class="section-desc">Non-negotiables for keeping domain health high and list quality sharp.</p>
+
+    <ul class="checklist">
+      <li><strong>Warmup Inbox stays on permanently</strong> for fly-birdie.com — do not turn it off between campaigns. It maintains the domain's reputation baseline.</li>
+      <li><strong>Monthly list hygiene:</strong> remove contacts with 3+ sends and zero engagement from active lists. Move to a suppressed "unresponsive" segment.</li>
+      <li>Keep cold send volume <strong>under 200/day per mailbox</strong> until domain reputation is fully established (typically 60–90 days after initial warm-up).</li>
+      <li>Watch <strong>spam rate in Google Postmaster</strong> (for Gmail-heavy segments) — keep below 0.1%. Above 0.3% = pause and audit.</li>
+      <li><strong>Never re-send</strong> to hard bounces or contacts who have received 3+ sends with no engagement.</li>
+      <li><strong>Suppression sync:</strong> any unsubscribe in Mailchimp must propagate to HubSpot within 24 hours (use native integration or Zapier).</li>
+      <li><strong>GDPR compliance:</strong> ensure consent status is tracked as a field in Airtable / HubSpot for all EU contacts.</li>
+    </ul>
+
+    <h3>Cold Email Cadence (fly-birdie.com / Mailchimp)</h3>
+    <div class="cadence-cards">
+      <div class="cadence-card">
+        <div class="day-label">Email 1 · Day 0</div>
+        <h4>Value-first, no pitch</h4>
+        <p>A stat, a POV, or a short insight relevant to their vertical. Goal: open + click.</p>
+      </div>
+      <div class="cadence-card">
+        <div class="day-label">Email 2 · Day 7</div>
+        <h4>Light social proof</h4>
+        <p>A customer result or a quote. Soft CTA — "worth a look?" — no pressure.</p>
+      </div>
+      <div class="cadence-card">
+        <div class="day-label">Email 3 · Day 17</div>
+        <h4>Direct ask</h4>
+        <p>One clear ask, short. If no engagement after this, suppress. Done.</p>
+      </div>
+    </div>
+
+    <h3>Warm Sequence (usebirdie.com / HubSpot)</h3>
+    <div class="cadence-cards">
+      <div class="cadence-card">
+        <div class="day-label">Day 0</div>
+        <h4>Personalised intro</h4>
+        <p>Reference the signal: "saw you joined our CX Stack Reset webinar…"</p>
+      </div>
+      <div class="cadence-card">
+        <div class="day-label">Day 3</div>
+        <h4>Value add</h4>
+        <p>A relevant resource, case study, or a genuinely useful question.</p>
+      </div>
+      <div class="cadence-card">
+        <div class="day-label">Day 7</div>
+        <h4>Soft ask</h4>
+        <p>Short ask for a conversation. No decks, no walls of text. One sentence ask.</p>
+      </div>
+      <div class="cadence-card" style="grid-column: span 3;">
+        <div class="day-label">Day 14</div>
+        <h4>Final follow-up</h4>
+        <p>"Leaving this here if timing changes." Short. No pressure. Exit sequence after no reply.</p>
+      </div>
+    </div>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 14: HANDOFF LOGIC -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="handoff">
+    <h2><span class="icon" style="background:#eff6ff">🔄</span> Cold → Warm → Hot Handoff Logic</h2>
+    <p class="section-desc">How a contact moves from a bulk cold list to an active Sales deal.</p>
+
+    <div class="flow">
+      <div>
+        <div class="flow-box">Mailchimp<br><small style="color:#6b7280">fly-birdie.com</small></div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div>
+        <div class="flow-box" style="background:#fffbeb">Opens / Clicks</div>
+        <span class="flow-cond">trigger</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div>
+        <div class="flow-box">Sync to HubSpot<br><small style="color:#6b7280">tag + property</small></div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div>
+        <div class="flow-box" style="background:#f0fdf4">HubSpot Sequence<br><small style="color:#6b7280">usebirdie.com</small></div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div>
+        <div class="flow-box" style="background:#fef2f2">Books call / Replies<br><small style="color:#6b7280">hand raise</small></div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div>
+        <div class="flow-box" style="background:#1a1a2e;color:white">Active Deal<br><small style="opacity:0.6">HubSpot CRM</small></div>
+      </div>
+    </div>
+
+    <h3>Enrollment Triggers for HubSpot Sequences</h3>
+    <table>
+      <tr>
+        <th>Signal</th>
+        <th>Action</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>2+ Mailchimp email opens</td>
+        <td>Tag in HubSpot → enroll in warm sequence</td>
+        <td>Mailchimp ↔ HubSpot native integration</td>
+      </tr>
+      <tr>
+        <td>Clicked link in cold email</td>
+        <td>Immediate warm sequence enrollment</td>
+        <td>Higher intent than a pure open</td>
+      </tr>
+      <tr>
+        <td>Luma event registration</td>
+        <td>Enroll in warm sequence referencing event</td>
+        <td>Pre-event sequence ideal</td>
+      </tr>
+      <tr>
+        <td>Form fill (any form)</td>
+        <td>MQL review → if ICP, enroll immediately</td>
+        <td>Highest intent; fastest response needed</td>
+      </tr>
+      <tr>
+        <td>4+ LinkedIn interactions (45d)</td>
+        <td>Flag as "engaged" in Airtable → coordinate with Sales</td>
+        <td>Manual or semi-automated flag</td>
+      </tr>
+      <tr>
+        <td>Pricing page or two-pager download</td>
+        <td>SAL flag → Sales notified for follow-up</td>
+        <td>Strong intent — fast response critical</td>
+      </tr>
+    </table>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 15: KPIS -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="kpis">
+    <h2><span class="icon" style="background:#fef9c3">📊</span> Strategic KPIs</h2>
+    <p class="section-desc">The questions this playbook should allow us to answer at any time. If we can't answer these, we have a data quality problem.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <h4>🔬 Pipeline Quality & ICP Fit</h4>
+        <ul>
+          <li>What % of leads from each source convert to MQL?</li>
+          <li>Which sources generate Target Account leads vs. noise?</li>
+          <li>What's our TA lead rate overall and by source?</li>
+          <li>Do cold outreach leads convert differently than inbound?</li>
+        </ul>
+      </div>
+      <div class="kpi-card">
+        <h4>💰 Channel ROI & Prioritisation</h4>
+        <ul>
+          <li>Which channels should we double down on vs. cut in Q3?</li>
+          <li>Are webinar leads converting to MQL at higher rates?</li>
+          <li>What is the cost-per-MQL by channel?</li>
+        </ul>
+      </div>
+      <div class="kpi-card">
+        <h4>🎯 ICP & Segment Validation</h4>
+        <ul>
+          <li>Are FinTech/InsurTech leads converting at higher rates?</li>
+          <li>Which company sizes appear most in TA leads?</li>
+          <li>Are we reaching CX/Insights personas, or drifting adjacent?</li>
+        </ul>
+      </div>
+      <div class="kpi-card">
+        <h4>⚡ Velocity & Coverage</h4>
+        <ul>
+          <li>How many MQLs/week? Are we on pace for quarterly targets?</li>
+          <li>What's the follow-up lag from capture to first touch?</li>
+          <li>How many TA leads have no activity logged? (coverage gaps)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 16: SPRINT METRICS -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="sprint">
+    <h2><span class="icon" style="background:#f0fdf4">📅</span> Sprint Meeting Metrics</h2>
+    <p class="section-desc">Bring these to every Marketing Sprint — they tell the story of pipeline health in one pass.</p>
+
+    <table class="metric-signal">
+      <tr>
+        <th>Metric</th>
+        <th>What It Signals</th>
+        <th>Red Flag</th>
+      </tr>
+      <tr>
+        <td>MQL volume by source</td>
+        <td>Which channels are producing qualified demand</td>
+        <td>MQL volume declining week-on-week</td>
+      </tr>
+      <tr>
+        <td>TA lead rate by source</td>
+        <td>Where ICP targeting is working</td>
+        <td>TA rate below 10% from paid channels</td>
+      </tr>
+      <tr>
+        <td>Quality rate trend (week-over-week)</td>
+        <td>Whether lead quality is improving or degrading</td>
+        <td>ICP fit % dropping while volume stays flat</td>
+      </tr>
+      <tr>
+        <td>Webinar vs. cold outreach MQL comparison</td>
+        <td>Content-led vs. outbound efficiency</td>
+        <td>Cold outreach at &lt;5% MQL conversion</td>
+      </tr>
+      <tr>
+        <td>Top 5 TA accounts in pipeline</td>
+        <td>ABM focus for Sales alignment</td>
+        <td>Any TA with no activity logged in 30d</td>
+      </tr>
+      <tr>
+        <td>Dead zones — leads with no follow-up</td>
+        <td>Execution gaps to fix immediately</td>
+        <td>More than 20% of MQLs with no follow-up touch</td>
+      </tr>
+      <tr>
+        <td>Domain health score (fly-birdie.com)</td>
+        <td>Email deliverability risk</td>
+        <td>Google Postmaster spam rate above 0.1%</td>
+      </tr>
+    </table>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- SECTION 17: ROLES -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="roles">
+    <h2><span class="icon" style="background:#f5f3ff">👩‍💼</span> Roles & Responsibilities</h2>
+    <p class="section-desc">Who owns what. Clarity here prevents duplicated work and missed handoffs.</p>
+
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-name">Marketing Lead</div>
+        <h4>Miguel</h4>
+        <ul>
+          <li>Owns this playbook and keeps it updated</li>
+          <li>Defines ICP criteria, stage definitions, and lead segmentation</li>
+          <li>Sets brand-level campaign strategy per group per month — awareness, nurture, and conversion campaigns</li>
+          <li>Owns campaigns tied to GTM positioning, demand generation, and pipeline growth</li>
+          <li>Oversees Airtable SSOT structure and data integrity</li>
+          <li>Reviews sprint metrics and adjusts priorities</li>
+          <li>Coordinates with Sales Director on non-ICP hand raises</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-name">BDR / MKT Ops · Brazil</div>
+        <h4>Ju</h4>
+        <ul>
+          <li>Executes campaigns while automation is not yet live</li>
+          <li>Generates and manages Brazil lead lists</li>
+          <li>Operates MKT/Sales motions for Brazil region</li>
+          <li>BDR function: first touch, list building, list hygiene</li>
+          <li>Transitions to primarily BDR once automation is live</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-name">Product Marketing &amp; Automation</div>
+        <h4>Karen</h4>
+        <ul>
+          <li>Owns all product-focused communications — feature announcements, release updates, product-led campaigns, and in-product email moments</li>
+          <li>Plans and executes product marketing campaigns end-to-end, separate from brand/demand campaigns owned by Miguel</li>
+          <li>Automates campaign execution from mapped workflows</li>
+          <li>Sets up HubSpot enrollment triggers and lifecycle automations</li>
+          <li>Maintains Mailchimp ↔ HubSpot sync and Airtable automations</li>
+        </ul>
+      </div>
+      <div class="role-card">
+        <div class="role-name">Sales</div>
+        <h4>Sales Team</h4>
+        <ul>
+          <li>Accepts SAL/SQL handoffs from Marketing</li>
+          <li>Validates BANT for SQO conversion</li>
+          <li>Confirms non-ICP hand raises with Sales Director</li>
+          <li>Logs all activity in HubSpot CRM (no dark ops)</li>
+          <li>Gives feedback on lead quality weekly</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note note-blue" style="margin-top:20px;">
+      <strong>📐 Campaign ownership boundary:</strong> If a campaign is about <em>who Birdie is, who it's for, and why they should care</em> — it's Miguel's. If a campaign is about <em>what Birdie does and what's new in the product</em> — it's Karen's. When in doubt, check: does this require pipeline context or ICP targeting logic? If yes, Miguel leads. Does it require product roadmap knowledge or in-app context? If yes, Karen leads.
+    </div>
+    <div class="note note-green">
+      <strong>🗓️ This sprint's priority:</strong> Document and organise all lead groups, tools, and workflows in Airtable before automation begins. The playbook you're reading is the foundation — the next step is configuring the Airtable base to match this structure.
+    </div>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
+  </section>
+
+  <!-- FOOTER -->
+  <div style="text-align:center;padding:32px 0 16px;color:var(--gray-mid);font-size:12px;">
+    Birdie Lead Management Playbook · v1.2 · May 2026 · Owner: Marketing<br>
+    Questions? Reach out to <a href="mailto:miguel.dorneles@birdie.ai" style="color:var(--green)">miguel.dorneles@birdie.ai</a>
+  </div>
+
+</main>
+</body>
+</html>
