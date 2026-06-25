@@ -4,17 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birdie Lead Management Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+  /* ================================================
+     BIRDIE BRAND SYSTEM — Lead Management Playbook
+     ================================================ */
   :root {
+    /* Core brand palette */
     --green: #00b386;
-    --green-light: #e6f9f4;
+    --green-dark: #009470;
+    --green-light: #e8faf5;
     --green-mid: #b3ede0;
     --dark: #1a1a2e;
+    --dark-2: #12122a;
+
+    /* Grays */
     --gray-dark: #374151;
     --gray-mid: #6b7280;
-    --gray-light: #f3f4f6;
+    --gray-light: #f4f5f7;
     --gray-border: #e5e7eb;
     --white: #ffffff;
+
+    /* Supporting colors */
     --yellow: #fbbf24;
     --yellow-light: #fffbeb;
     --red: #ef4444;
@@ -25,18 +38,29 @@
     --purple-light: #f5f3ff;
     --orange: #f97316;
     --orange-light: #fff7ed;
+
+    /* Design tokens */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--gray-dark);
-    background: var(--gray-light);
+    background: #eef0f3;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* NAV */
+  /* ================================
+     NAVIGATION
+     ================================ */
   nav {
     position: fixed;
     top: 0; left: 0;
@@ -46,82 +70,131 @@
     overflow-y: auto;
     padding: 0 0 32px 0;
     z-index: 100;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.1) transparent;
   }
 
   .nav-logo {
-    padding: 24px 20px 20px;
+    padding: 22px 20px 18px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
     margin-bottom: 8px;
   }
 
-  .nav-logo span {
-    display: inline-block;
-    background: var(--green);
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 4px;
-    margin-bottom: 6px;
+  .nav-birdie-logo {
+    height: 26px;
+    width: auto;
+    display: block;
+    margin-bottom: 14px;
+    filter: brightness(0) invert(1);
   }
 
-  .nav-logo h2 {
-    color: white;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.4;
+  .nav-doc-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+    letter-spacing: 0.1px;
   }
 
   nav a {
     display: block;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.52);
     text-decoration: none;
     font-size: 12.5px;
+    font-weight: 400;
     padding: 7px 20px;
-    transition: all 0.15s;
-    border-left: 3px solid transparent;
+    transition: all 0.14s;
+    border-left: 2px solid transparent;
   }
 
   nav a:hover {
-    color: white;
+    color: rgba(255,255,255,0.92);
     background: rgba(255,255,255,0.05);
     border-left-color: var(--green);
   }
 
   nav .nav-section {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.4px;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.22);
     padding: 16px 20px 4px;
   }
 
-  /* MAIN */
+  /* ================================
+     MAIN LAYOUT
+     ================================ */
   main {
     margin-left: 260px;
     padding: 40px 48px;
     max-width: 1100px;
   }
 
-  /* HEADER HERO */
+  /* ================================
+     HERO SECTION
+     ================================ */
   .hero {
-    background: linear-gradient(135deg, var(--dark) 0%, #0f3d30 100%);
-    border-radius: 16px;
-    padding: 40px 48px;
-    margin-bottom: 40px;
+    position: relative;
+    background: var(--dark);
+    border-radius: var(--radius-lg);
+    padding: 44px 52px;
+    margin-bottom: 32px;
     color: white;
+    overflow: hidden;
+  }
+
+  .hero-texture {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 50%;
+    background-image: url('https://cdn.prod.website-files.com/6a05e88a59d41e50dbf871b0/6a0b22963a749be974b9fe5d_img_texture_tab.webp');
+    background-size: cover;
+    background-position: center left;
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .hero-fade {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 65%;
+    background: linear-gradient(to right, var(--dark) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .hero-bird {
+    position: absolute;
+    right: 44px;
+    bottom: -10px;
+    width: 140px;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-logo {
+    height: 28px;
+    width: auto;
+    display: block;
+    margin-bottom: 24px;
+    filter: brightness(0) invert(1);
   }
 
   .hero .badge {
-    display: inline-block;
-    background: var(--green);
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0,179,134,0.18);
+    border: 1px solid rgba(0,179,134,0.35);
+    color: #5ee8c6;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
     padding: 4px 10px;
     border-radius: 20px;
@@ -129,84 +202,109 @@
   }
 
   .hero h1 {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 800;
     margin-bottom: 10px;
     line-height: 1.2;
+    letter-spacing: -0.5px;
   }
 
   .hero p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.7);
-    max-width: 640px;
-    margin-bottom: 24px;
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.62);
+    max-width: 560px;
+    margin-bottom: 28px;
+    font-weight: 400;
+    line-height: 1.65;
   }
 
   .hero-meta {
     display: flex;
-    gap: 24px;
+    gap: 0;
     flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 20px;
   }
 
   .hero-meta span {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.38);
+    padding-right: 20px;
+    margin-right: 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .hero-meta span:last-child {
+    border-right: none;
+    margin-right: 0;
+    padding-right: 0;
   }
 
   .hero-meta strong {
-    color: rgba(255,255,255,0.85);
+    color: rgba(255,255,255,0.72);
+    font-weight: 600;
   }
 
-  /* SECTIONS */
+  /* ================================
+     CONTENT SECTIONS
+     ================================ */
   section {
     background: var(--white);
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     padding: 36px 40px;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     border: 1px solid var(--gray-border);
+    box-shadow: var(--shadow-sm);
   }
 
   section h2 {
-    font-size: 20px;
+    font-size: 17.5px;
     font-weight: 700;
     color: var(--dark);
     margin-bottom: 6px;
     display: flex;
     align-items: center;
     gap: 10px;
+    letter-spacing: -0.2px;
   }
 
   section h2 .icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 15px;
     flex-shrink: 0;
   }
 
   .section-desc {
-    font-size: 14px;
+    font-size: 13.5px;
     color: var(--gray-mid);
     margin-bottom: 24px;
-    padding-bottom: 20px;
+    padding-bottom: 18px;
     border-bottom: 1px solid var(--gray-border);
+    font-weight: 400;
+    line-height: 1.6;
   }
 
   h3 {
-    font-size: 15px;
+    font-size: 11px;
     font-weight: 700;
-    color: var(--dark);
+    color: var(--gray-mid);
     margin: 24px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
   }
 
   h3:first-of-type { margin-top: 0; }
 
-  p { font-size: 14px; color: var(--gray-dark); margin-bottom: 10px; }
+  p { font-size: 14px; color: var(--gray-dark); margin-bottom: 10px; line-height: 1.65; }
 
-  /* STAGE PIPELINE */
+  /* ================================
+     STAGE PIPELINE
+     ================================ */
   .pipeline {
     display: flex;
     gap: 0;
@@ -225,8 +323,8 @@
     position: relative;
   }
 
-  .stage-card:first-child { border-radius: 10px 0 0 10px; }
-  .stage-card:last-child { border-right: 1px solid var(--gray-border); border-radius: 0 10px 10px 0; }
+  .stage-card:first-child { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+  .stage-card:last-child { border-right: 1px solid var(--gray-border); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
 
   .stage-card::after {
     content: '›';
@@ -237,16 +335,16 @@
     font-size: 22px;
     color: var(--gray-mid);
     z-index: 1;
-    background: white;
+    background: var(--gray-light);
     width: 22px;
     text-align: center;
   }
   .stage-card:last-child::after { display: none; }
 
   .stage-label {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
     color: var(--gray-mid);
     margin-bottom: 4px;
@@ -256,12 +354,13 @@
     font-size: 15px;
     font-weight: 800;
     margin-bottom: 8px;
+    letter-spacing: -0.2px;
   }
 
   .stage-def {
     font-size: 12px;
     color: var(--gray-dark);
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   .stage-tag {
@@ -273,7 +372,6 @@
     margin-top: 8px;
   }
 
-  /* COLORS BY STAGE */
   .s-lead   { border-top: 3px solid #94a3b8; }
   .s-lead .stage-name { color: #64748b; }
   .s-lead .stage-tag { background: #f1f5f9; color: #64748b; }
@@ -292,13 +390,16 @@
 
   .s-sqo    { border-top: 3px solid var(--green); }
   .s-sqo .stage-name { color: var(--green); }
-  .s-sqo .stage-tag { background: var(--green-light); color: var(--green); }
+  .s-sqo .stage-tag { background: var(--green-light); color: var(--green-dark); }
 
-  /* NOTE BOX */
+  /* ================================
+     NOTE BOXES
+     ================================ */
   .note {
     background: var(--yellow-light);
     border: 1px solid #fde68a;
-    border-radius: 8px;
+    border-left: 3px solid var(--yellow);
+    border-radius: var(--radius-sm);
     padding: 12px 16px;
     font-size: 13px;
     color: #78350f;
@@ -310,16 +411,20 @@
   .note-green {
     background: var(--green-light);
     border-color: var(--green-mid);
+    border-left-color: var(--green);
     color: #064e3b;
   }
 
   .note-blue {
     background: var(--blue-light);
     border-color: #bfdbfe;
+    border-left-color: var(--blue);
     color: #1e40af;
   }
 
-  /* SEGMENT CARDS */
+  /* ================================
+     SEGMENT CARDS
+     ================================ */
   .segment-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -328,13 +433,13 @@
   }
 
   .segment-card {
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 18px;
     border: 1px solid var(--gray-border);
   }
 
   .segment-card h4 {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 700;
     margin-bottom: 8px;
     display: flex;
@@ -364,7 +469,9 @@
   .seg-evan   { background: var(--orange-light);  border-color: #fed7aa; }
   .seg-evan h4 { color: var(--orange); }
 
-  /* CRITERIA GRID */
+  /* ================================
+     CRITERIA GRID
+     ================================ */
   .criteria-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -374,16 +481,16 @@
 
   .criteria-box {
     border: 1px solid var(--gray-border);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     padding: 14px 16px;
     background: var(--gray-light);
   }
 
   .criteria-box h4 {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.9px;
     color: var(--gray-mid);
     margin-bottom: 8px;
   }
@@ -394,7 +501,9 @@
     line-height: 1.9;
   }
 
-  /* TABLE */
+  /* ================================
+     TABLES
+     ================================ */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -404,31 +513,31 @@
 
   th {
     background: var(--dark);
-    color: white;
+    color: rgba(255,255,255,0.88);
     padding: 10px 14px;
     text-align: left;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
   }
 
-  th:first-child { border-radius: 8px 0 0 0; }
-  th:last-child  { border-radius: 0 8px 0 0; }
+  th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+  th:last-child  { border-radius: 0 var(--radius-sm) 0 0; }
 
   td {
     padding: 10px 14px;
     border-bottom: 1px solid var(--gray-border);
     vertical-align: top;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   tr:last-child td { border-bottom: none; }
-  tr:nth-child(even) td { background: var(--gray-light); }
+  tr:nth-child(even) td { background: #fafafa; }
 
   .tag {
     display: inline-block;
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 600;
     padding: 2px 8px;
     border-radius: 10px;
@@ -441,7 +550,9 @@
   .tag-green  { background: var(--green-light); color: #065f46; }
   .tag-purple { background: var(--purple-light); color: #5b21b6; }
 
-  /* TOOL STACK */
+  /* ================================
+     TOOL STACK
+     ================================ */
   .tool-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -451,14 +562,16 @@
 
   .tool-card {
     border: 1px solid var(--gray-border);
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 16px;
+    background: white;
+    box-shadow: var(--shadow-sm);
   }
 
   .tool-card .tool-heat {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
     margin-bottom: 6px;
   }
@@ -467,6 +580,7 @@
     font-size: 14px;
     font-weight: 700;
     margin-bottom: 6px;
+    letter-spacing: -0.1px;
   }
 
   .tool-card p {
@@ -484,7 +598,9 @@
   .tool-hot  { border-top: 3px solid var(--red); }
   .tool-hot  .tool-heat { color: #991b1b; }
 
-  /* PHASE CARDS */
+  /* ================================
+     PHASE CARDS
+     ================================ */
   .phase-list { margin: 16px 0; }
 
   .phase {
@@ -495,12 +611,12 @@
   }
 
   .phase-num {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: var(--green);
     color: white;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 800;
     display: flex;
     align-items: center;
@@ -514,6 +630,7 @@
     font-weight: 700;
     margin-bottom: 4px;
     color: var(--dark);
+    letter-spacing: -0.1px;
   }
 
   .phase-content p {
@@ -522,15 +639,19 @@
     color: var(--gray-dark);
   }
 
-  /* DOMAIN TABLE */
+  /* ================================
+     DOMAIN TABLE
+     ================================ */
   .domain-row td:first-child {
-    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     font-size: 12px;
     font-weight: 600;
     background: var(--gray-light);
   }
 
-  /* CHECKLIST */
+  /* ================================
+     CHECKLIST
+     ================================ */
   .checklist {
     list-style: none;
     padding: 0;
@@ -556,7 +677,9 @@
     margin-top: -1px;
   }
 
-  /* KPI GRID */
+  /* ================================
+     KPI GRID
+     ================================ */
   .kpi-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -566,7 +689,7 @@
 
   .kpi-card {
     border: 1px solid var(--gray-border);
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 16px;
     background: var(--gray-light);
   }
@@ -576,6 +699,7 @@
     font-weight: 700;
     color: var(--dark);
     margin-bottom: 6px;
+    letter-spacing: -0.1px;
   }
 
   .kpi-card ul {
@@ -585,7 +709,9 @@
     color: var(--gray-dark);
   }
 
-  /* FLOW DIAGRAM */
+  /* ================================
+     FLOW DIAGRAM
+     ================================ */
   .flow {
     display: flex;
     align-items: center;
@@ -594,19 +720,20 @@
     margin: 16px 0;
     padding: 16px;
     background: var(--gray-light);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     border: 1px solid var(--gray-border);
   }
 
   .flow-box {
     background: white;
     border: 1px solid var(--gray-border);
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     padding: 8px 12px;
     font-size: 12px;
     font-weight: 600;
     text-align: center;
     min-width: 90px;
+    box-shadow: var(--shadow-sm);
   }
 
   .flow-arrow {
@@ -624,10 +751,11 @@
     font-style: italic;
   }
 
-  /* SPRINT TABLE */
+  /* ================================
+     ROLE CARDS
+     ================================ */
   .metric-signal td:nth-child(1) { font-weight: 600; }
 
-  /* ROLE CARDS */
   .role-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -637,16 +765,18 @@
 
   .role-card {
     border: 1px solid var(--gray-border);
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 18px;
+    background: white;
+    box-shadow: var(--shadow-sm);
   }
 
   .role-card .role-name {
-    font-size: 13px;
+    font-size: 9.5px;
     font-weight: 700;
     color: var(--green);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1.1px;
     margin-bottom: 4px;
   }
 
@@ -655,6 +785,7 @@
     font-weight: 700;
     color: var(--dark);
     margin-bottom: 10px;
+    letter-spacing: -0.2px;
   }
 
   .role-card ul {
@@ -663,7 +794,9 @@
     line-height: 1.9;
   }
 
-  /* CADENCE CARDS */
+  /* ================================
+     CADENCE CARDS
+     ================================ */
   .cadence-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -673,15 +806,17 @@
 
   .cadence-card {
     border: 1px solid var(--gray-border);
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 14px;
+    background: white;
+    box-shadow: var(--shadow-sm);
   }
 
   .cadence-card .day-label {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     color: var(--gray-mid);
     margin-bottom: 4px;
   }
@@ -699,7 +834,9 @@
     margin: 0;
   }
 
-  /* CHANNEL TABS */
+  /* ================================
+     CHANNEL CARDS
+     ================================ */
   .channel-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -709,14 +846,16 @@
 
   .channel-card {
     border: 1px solid var(--gray-border);
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 18px;
+    background: white;
+    box-shadow: var(--shadow-sm);
   }
 
   .channel-card .ch-label {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
     color: var(--gray-mid);
     margin-bottom: 4px;
@@ -727,6 +866,7 @@
     font-weight: 700;
     color: var(--dark);
     margin-bottom: 10px;
+    letter-spacing: -0.2px;
   }
 
   .channel-card ul {
@@ -735,7 +875,9 @@
     line-height: 1.9;
   }
 
-  /* COLUMN PILLS */
+  /* ================================
+     PILLS
+     ================================ */
   .pill-list {
     display: flex;
     flex-wrap: wrap;
@@ -746,10 +888,10 @@
   .pill {
     background: var(--dark);
     color: rgba(255,255,255,0.85);
-    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     font-size: 11.5px;
     padding: 4px 10px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
   }
 
   .pill.optional {
@@ -758,7 +900,9 @@
     border: 1px solid var(--gray-border);
   }
 
-  /* WARMUP TIMELINE */
+  /* ================================
+     WARMUP TIMELINE
+     ================================ */
   .warmup-weeks {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -769,24 +913,25 @@
   .week-card {
     background: var(--gray-light);
     border: 1px solid var(--gray-border);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     padding: 14px;
   }
 
   .week-card .wk-label {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     color: var(--green);
     margin-bottom: 4px;
   }
 
   .week-card .wk-vol {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 800;
     color: var(--dark);
     margin-bottom: 4px;
+    letter-spacing: -0.5px;
   }
 
   .week-card p {
@@ -795,7 +940,9 @@
     margin: 0;
   }
 
-  /* BACK TO TOP */
+  /* ================================
+     BACK TO TOP
+     ================================ */
   .back-to-top {
     text-align: right;
     font-size: 12px;
@@ -813,16 +960,57 @@
     border: 1px solid var(--gray-border);
     border-radius: 4px;
     padding: 1px 6px;
-    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     font-size: 12px;
     color: var(--dark);
   }
 
+  /* ================================
+     FOOTER
+     ================================ */
+  .playbook-footer {
+    border-top: 1px solid var(--gray-border);
+    padding: 32px 0 24px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    height: 20px;
+    width: auto;
+    opacity: 0.35;
+    filter: grayscale(1);
+  }
+
+  .footer-meta {
+    font-size: 12px;
+    color: var(--gray-mid);
+    text-align: center;
+    flex: 1;
+  }
+
+  .footer-meta a {
+    color: var(--green);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ================================
+     RESPONSIVE
+     ================================ */
   @media (max-width: 900px) {
     nav { display: none; }
     main { margin-left: 0; padding: 24px; }
     .segment-grid, .tool-grid, .warmup-weeks, .cadence-cards { grid-template-columns: 1fr; }
     .criteria-grid, .kpi-grid, .role-grid, .channel-grid { grid-template-columns: 1fr; }
+    .hero { padding: 32px 24px; }
+    .hero-bird, .hero-texture, .hero-fade { display: none; }
+    .hero-meta { gap: 12px; }
+    .hero-meta span { border-right: none; padding-right: 0; margin-right: 0; }
   }
 </style>
 </head>
@@ -831,8 +1019,9 @@
 <!-- NAVIGATION -->
 <nav>
   <div class="nav-logo">
-    <span>Birdie</span>
-    <h2>Lead Management<br>Playbook</h2>
+    <img src="https://cdn.prod.website-files.com/6a05e88a59d41e50dbf871b0/6a05e88a59d41e50dbf871de_logo.svg"
+         alt="Birdie" class="nav-birdie-logo">
+    <div class="nav-doc-label">Lead Management<br>Playbook</div>
   </div>
 
   <div class="nav-section">Overview</div>
@@ -848,6 +1037,12 @@
   <div class="nav-section">Data & SSOT</div>
   <a href="#ssot">SSOT Structure (Airtable)</a>
   <a href="#filters">Segmentation Filters</a>
+
+  <div class="nav-section">Data Enrichment</div>
+  <a href="#enrichment-sources">Enrichment Sources</a>
+  <a href="#enrichment-triggers">Enrichment Triggers</a>
+  <a href="#enrichment-fields">Required Fields by Stage</a>
+  <a href="#enrichment-routing">Routing Rules</a>
 
   <div class="nav-section">Activation</div>
   <a href="#campaigns">Campaign Strategy by Group</a>
@@ -874,14 +1069,22 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="badge">🐦 Marketing · GTM</div>
-    <h1>Lead Management Playbook</h1>
-    <p>The single source of truth for how Birdie captures, stages, segments, nurtures, and converts leads — from first touch to closed deal.</p>
-    <div class="hero-meta">
-      <span><strong>Owner:</strong> Marketing</span>
-      <span><strong>Status:</strong> Active v1.2</span>
-      <span><strong>Last updated:</strong> May 2026</span>
-      <span><strong>SSOT:</strong> Airtable</span>
+    <div class="hero-texture"></div>
+    <div class="hero-fade"></div>
+    <img src="https://cdn.prod.website-files.com/6a05e88a59d41e50dbf871b0/6a05e88a59d41e50dbf872cf_bird.svg"
+         alt="" class="hero-bird" aria-hidden="true">
+    <div class="hero-content">
+      <img src="https://cdn.prod.website-files.com/6a05e88a59d41e50dbf871b0/6a05e88a59d41e50dbf871de_logo.svg"
+           alt="Birdie" class="hero-logo">
+      <div class="badge">Marketing · GTM</div>
+      <h1>Lead Management Playbook</h1>
+      <p>The single source of truth for how Birdie captures, stages, segments, nurtures, and converts leads — from first touch to closed deal.</p>
+      <div class="hero-meta">
+        <span><strong>Owner:</strong> Marketing</span>
+        <span><strong>Status:</strong> Active v1.2</span>
+        <span><strong>Last updated:</strong> June 2026</span>
+        <span><strong>SSOT:</strong> Airtable</span>
+      </div>
     </div>
   </div>
 
@@ -1349,6 +1552,209 @@
         <td>Campaign exclusion rules — see <a href="#flagging" style="color:var(--green);">Competitors &amp; Partners</a> section for full workflow</td>
       </tr>
     </table>
+  </section>
+
+  <!-- ──────────────────────────────────────────── -->
+  <!-- DATA ENRICHMENT -->
+  <!-- ──────────────────────────────────────────── -->
+  <section id="enrichment-sources">
+    <h2><span class="icon" style="background:#f0f9ff">⚙️</span> Data Enrichment</h2>
+    <p class="section-desc">How Birdie enriches contact and company data across the lead lifecycle — which tools cover what, when enrichment runs, what fields gate each stage, and how enriched data drives routing decisions.</p>
+
+    <h3>Enrichment Sources</h3>
+    <table>
+      <tr>
+        <th>Source</th>
+        <th>Coverage</th>
+      </tr>
+      <tr>
+        <td><strong>Apollo</strong></td>
+        <td>Company size · Industry · Tech stack · Job title · Seniority · Direct email · LinkedIn URL. Runs automatically on every net-new contact entering Airtable. Default tool for manual enrichment. <em>Brazil gap: use Speedio as fallback when Apollo returns incomplete results.</em></td>
+      </tr>
+      <tr>
+        <td><strong>RB2B</strong></td>
+        <td>Company name · Visitor LinkedIn profile · Page visited · Visit timestamp. Identifies anonymous website visitors and creates net-new contacts in Airtable or updates intent signal on existing ones.</td>
+      </tr>
+      <tr>
+        <td><strong>LinkedIn Ads</strong></td>
+        <td>Ad engagement type · Campaign source · Job title · Company name (from lead gen form fills). Flows into HubSpot via native integration and elevates contact score.</td>
+      </tr>
+      <tr>
+        <td><strong>HubSpot</strong></td>
+        <td>Sequence engagement · Email replies · Meeting booked · Deal stage · Owner assignment. Becomes the primary enrichment source at MQL+; Airtable mirrors key fields via sync.</td>
+      </tr>
+      <tr>
+        <td><strong>Speedio</strong> <em>(proposed)</em></td>
+        <td>CNPJ-based company lookup and direct contact data for Brazilian prospects. Recommended for Brazil MKT queue when Apollo coverage is thin.</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      <strong>ℹ️</strong> Mailchimp and Warmup Inbox are not enrichment sources. Email engagement signals (opens, clicks, bounces) feed contact health scoring — covered in <a href="#hygiene" style="color:#92400e;">CRM Health → Ongoing Hygiene Rules</a>.
+    </div>
+
+    <div id="enrichment-triggers"></div>
+    <h3>Enrichment Triggers</h3>
+    <p>Enrichment runs in two tiers to optimise credit usage. Tier 1 is lightweight and runs on all contacts to determine ICP fit. Tier 2 is full enrichment and runs only on contacts that pass Tier 1. No ICP Fit contacts skip Tier 2 entirely and enter a lightweight monthly maintenance routine instead.</p>
+
+    <div class="criteria-grid">
+      <div class="criteria-box">
+        <h4>Tier 1 — Qualification enrichment (all contacts)</h4>
+        <ul>
+          <li>Company name · Company domain</li>
+          <li>Industry</li>
+          <li>Company size</li>
+        </ul>
+      </div>
+      <div class="criteria-box">
+        <h4>Tier 2 — Full enrichment (ICP Fit &amp; Target Account only)</h4>
+        <ul>
+          <li>Job title</li>
+          <li>Direct email</li>
+          <li>LinkedIn URL</li>
+          <li>Tech stack</li>
+        </ul>
+      </div>
+    </div>
+
+    <table>
+      <tr>
+        <th>Trigger</th>
+        <th>When</th>
+        <th>Action</th>
+        <th>Owner</th>
+      </tr>
+      <tr>
+        <td><strong>On entry — Tier 1</strong></td>
+        <td>Net-new contact added to Airtable</td>
+        <td>Apollo enriches company-level fields only. ICP fit is evaluated.</td>
+        <td>Global MKT</td>
+      </tr>
+      <tr>
+        <td><strong>On entry — Tier 2</strong></td>
+        <td>Tier 1 confirms ICP Fit or Target Account</td>
+        <td>Apollo runs full contact enrichment. Contact is scored, lead group assigned, and routed.</td>
+        <td>Global MKT</td>
+      </tr>
+      <tr>
+        <td><strong>On intent signal</strong></td>
+        <td>RB2B detects a website visit</td>
+        <td>Contact is created or updated with visit data. Tier 1 runs if not yet ICP-qualified. Tier 2 runs if ICP Fit is confirmed.</td>
+        <td>Global MKT</td>
+      </tr>
+      <tr>
+        <td><strong>On stage change</strong></td>
+        <td>Contact advances to next stage</td>
+        <td>Required fields for the target stage are validated. If fields are missing, Tier 2 runs before the transition is confirmed.</td>
+        <td>Global MKT · Brazil MKT</td>
+      </tr>
+      <tr>
+        <td><strong>Monthly maintenance</strong></td>
+        <td>Contact is in No ICP Fit group</td>
+        <td>Lightweight check for job or company change only. If a change is detected that may affect ICP fit, Tier 1 re-runs. No full enrichment unless ICP fit is confirmed.</td>
+        <td>Global MKT · Brazil MKT</td>
+      </tr>
+      <tr>
+        <td><strong>Quarterly refresh</strong></td>
+        <td>ICP Fit or Target Account contact with no stage movement or engagement for 90+ days</td>
+        <td>Tier 2 re-enrichment to catch role or company changes. Contact is re-scored.</td>
+        <td>Global MKT · Brazil MKT</td>
+      </tr>
+    </table>
+
+    <div id="enrichment-fields"></div>
+    <h3>Required Fields by Stage</h3>
+    <p>These fields must be populated before a contact can advance to the next stage. Tier 1 fields gate the ICP fit decision; Tier 2 fields gate activation.</p>
+
+    <table>
+      <tr>
+        <th>Stage</th>
+        <th>Required Fields</th>
+      </tr>
+      <tr>
+        <td><strong>Lead</strong></td>
+        <td>Full name · Email · Company name · Lead source</td>
+      </tr>
+      <tr>
+        <td><strong>MQL</strong></td>
+        <td>Industry · Company size <em>(Tier 1 — ICP fit confirmed)</em> · Job title · Region · Direct email (non-generic) · LinkedIn URL · Lead group assigned · At least 1 engagement signal <em>(Tier 2 — full enrichment required)</em></td>
+      </tr>
+      <tr>
+        <td><strong>SAL</strong></td>
+        <td>ICP score confirmed · Competitor/partner flag checked · Lead group reviewed and accepted by Sales</td>
+      </tr>
+      <tr>
+        <td><strong>SQL</strong></td>
+        <td>Contact exists in HubSpot · Need identified · Authority confirmed · Budget signal · Timeline indicated <em>(BANT fields captured in HubSpot and synced back to Airtable)</em></td>
+      </tr>
+      <tr>
+        <td><strong>SQO</strong></td>
+        <td>Full BANT validated · Deal created in HubSpot · Owner assigned · Expected close date set</td>
+      </tr>
+    </table>
+
+    <div class="note note-blue">
+      <strong>Job title as proxy:</strong> Job title is the proxy for persona and seniority fit at MQL. If the title doesn't map to a qualifying persona (CX, Product, Operations, Quality, Support at min. Coordinator/Manager/Head level), the contact does not advance regardless of other signals.
+    </div>
+    <div class="note">
+      <strong>HubSpot handoff:</strong> From SQL onwards, HubSpot is the system of record. Airtable reflects key fields via sync but Sales owns data entry at this stage.
+    </div>
+
+    <div id="enrichment-routing"></div>
+    <h3>Routing Rules</h3>
+    <p>Enriched data drives three routing decisions: lead group assignment, regional queue split, and competitor/partner flagging. These are evaluated at entry and re-evaluated at every stage change.</p>
+
+    <table>
+      <tr>
+        <th>Rule</th>
+        <th>Condition</th>
+        <th>Output</th>
+      </tr>
+      <tr>
+        <td><strong>Target Account</strong></td>
+        <td>Company matches ABM target list</td>
+        <td>Lead group = Target Account · Flagged for premium campaigns (LinkedIn Ads, Luma events)</td>
+      </tr>
+      <tr>
+        <td><strong>ICP Fit — Nurture</strong></td>
+        <td>ICP criteria met · No engagement signal</td>
+        <td>Lead group = ICP Fit · Enters nurture sequence · Stays in Marketing queue</td>
+      </tr>
+      <tr>
+        <td><strong>ICP Fit — MQL</strong></td>
+        <td>ICP criteria met · At least 1 engagement signal</td>
+        <td>Lead group = ICP Fit · Flagged as MQL · Routed to Sales review queue for SAL decision</td>
+      </tr>
+      <tr>
+        <td><strong>No ICP Fit</strong></td>
+        <td>Any ICP criterion fails</td>
+        <td>Lead group = No ICP Fit · Cold/bulk activation only · No warm sequence</td>
+      </tr>
+      <tr>
+        <td><strong>Brazil queue</strong></td>
+        <td>Region = Brazil/LATAM</td>
+        <td>Routed to Brazil MKT queue · Activated via Brazil-specific cadences</td>
+      </tr>
+      <tr>
+        <td><strong>Global queue</strong></td>
+        <td>Region = US/Canada or other</td>
+        <td>Routed to Global MKT queue · Activated via global cadences</td>
+      </tr>
+      <tr>
+        <td><strong>Competitor/partner flag</strong></td>
+        <td>Company domain matches exclusion list</td>
+        <td>Removed from all activation queues · Moved to Competitors &amp; Partners table in Airtable</td>
+      </tr>
+    </table>
+
+    <div class="note note-green">
+      <strong>Routing is dynamic:</strong> If enrichment updates a field that changes ICP fit (e.g. company growth crosses 200 headcount, or job title changes to a qualifying persona), the contact is re-evaluated and re-routed automatically.
+    </div>
+    <div class="note note-blue">
+      <strong>ICP Fit — Nurture vs. MQL:</strong> The distinction is purely driven by engagement. The same contact can move between the two states automatically as engagement signals are updated. Lead group and queue assignment live in Airtable. HubSpot reflects the assigned owner from SQL onwards.
+    </div>
+
+    <div class="back-to-top"><a href="#top">↑ Back to top</a></div>
   </section>
 
   <!-- ──────────────────────────────────────────── -->
@@ -1873,8 +2279,8 @@
 
     <div class="role-grid">
       <div class="role-card">
-        <div class="role-name">Marketing Lead</div>
-        <h4>Miguel</h4>
+        <div class="role-name">Global Marketing Lead</div>
+        <h4>Global Marketing Lead</h4>
         <ul>
           <li>Owns this playbook and keeps it updated</li>
           <li>Defines ICP criteria, stage definitions, and lead segmentation</li>
@@ -1887,7 +2293,7 @@
       </div>
       <div class="role-card">
         <div class="role-name">BDR / MKT Ops · Brazil</div>
-        <h4>Ju</h4>
+        <h4>BDR / MKT Ops · Brazil</h4>
         <ul>
           <li>Executes campaigns while automation is not yet live</li>
           <li>Generates and manages Brazil lead lists</li>
@@ -1898,7 +2304,7 @@
       </div>
       <div class="role-card">
         <div class="role-name">Product Marketing &amp; Automation</div>
-        <h4>Karen</h4>
+        <h4>Product Marketing &amp; Automation</h4>
         <ul>
           <li>Owns all product-focused communications — feature announcements, release updates, product-led campaigns, and in-product email moments</li>
           <li>Plans and executes product marketing campaigns end-to-end, separate from brand/demand campaigns owned by Miguel</li>
@@ -1921,7 +2327,7 @@
     </div>
 
     <div class="note note-blue" style="margin-top:20px;">
-      <strong>📐 Campaign ownership boundary:</strong> If a campaign is about <em>who Birdie is, who it's for, and why they should care</em> — it's Miguel's. If a campaign is about <em>what Birdie does and what's new in the product</em> — it's Karen's. When in doubt, check: does this require pipeline context or ICP targeting logic? If yes, Miguel leads. Does it require product roadmap knowledge or in-app context? If yes, Karen leads.
+      <strong>📐 Campaign ownership boundary:</strong> If a campaign is about <em>who Birdie is, who it's for, and why they should care</em> — it's Global Marketing Lead's. If a campaign is about <em>what Birdie does and what's new in the product</em> — it's Product Marketing &amp; Automation's. When in doubt, check: does this require pipeline context or ICP targeting logic? If yes, Global Marketing Lead leads. Does it require product roadmap knowledge or in-app context? If yes, Product Marketing &amp; Automation leads.
     </div>
     <div class="note note-green">
       <strong>🗓️ This sprint's priority:</strong> Document and organise all lead groups, tools, and workflows in Airtable before automation begins. The playbook you're reading is the foundation — the next step is configuring the Airtable base to match this structure.
@@ -1931,9 +2337,14 @@
   </section>
 
   <!-- FOOTER -->
-  <div style="text-align:center;padding:32px 0 16px;color:var(--gray-mid);font-size:12px;">
-    Birdie Lead Management Playbook · v1.2 · May 2026 · Owner: Marketing<br>
-    Questions? Reach out to <a href="mailto:miguel.dorneles@birdie.ai" style="color:var(--green)">miguel.dorneles@birdie.ai</a>
+  <div class="playbook-footer">
+    <img src="https://cdn.prod.website-files.com/6a05e88a59d41e50dbf871b0/6a05e88a59d41e50dbf871de_logo.svg"
+         alt="Birdie" class="footer-logo">
+    <div class="footer-meta">
+      Lead Management Playbook · v1.2 · May 2026 · Owner: Marketing<br>
+      Questions? <a href="mailto:miguel.dorneles@birdie.ai">miguel.dorneles@birdie.ai</a>
+    </div>
+    <div style="width:60px"></div>
   </div>
 
 </main>
